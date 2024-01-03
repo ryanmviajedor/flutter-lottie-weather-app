@@ -3,6 +3,7 @@ import 'package:flutter_lottie_weather_app/models/weather_model.dart';
 import 'package:flutter_lottie_weather_app/services/weather_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gap/gap.dart';
+import 'package:lottie/lottie.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -41,6 +42,28 @@ class _WeatherScreenState extends State<WeatherScreen> {
   }
 
   //weather animations
+  String getWeatherAnimation(String? mainCondition) {
+    if (mainCondition == null) return 'assets/sunny.json'; // default
+
+    switch (mainCondition.toLowerCase()) {
+      case 'clouds':
+      case 'mist':
+      case 'smoke':
+      case 'haze':
+      case 'dust':
+      case 'fog':
+        return 'assets/cloud.json';
+      case 'rain':
+      case 'drizzle':
+        return 'assets/rain.json';
+      case 'thunderstorm':
+        return 'assets/thunder.json';
+      case 'clear':
+        return 'assets/sunny.json';
+      default:
+        return 'assets/sunny.json';
+    }
+  }
 
   // init state
   @override
@@ -55,14 +78,22 @@ class _WeatherScreenState extends State<WeatherScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[800],
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // city name
             Text(_weather?.cityName ?? "Loading city..."),
-            const Gap(5),
+
+            // animations
+            Lottie.asset(getWeatherAnimation(_weather?.mainCondition)),
+
+            // tempearture
             Text('${_weather?.temperature.round()}°C'),
+
+            // weather condition
+            Text(_weather?.mainCondition ?? ""),
           ],
         ),
       ),
