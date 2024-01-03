@@ -84,16 +84,34 @@ class _WeatherScreenState extends State<WeatherScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // city name
-            Text(_weather?.cityName ?? "Loading city..."),
+            Text(
+              _weather?.cityName ?? "Loading city...",
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
 
             // animations
             Lottie.asset(getWeatherAnimation(_weather?.mainCondition)),
 
             // tempearture
-            Text('${_weather?.temperature.round()}°C'),
+            Text(
+              '${_weather?.temperature.round()}°C',
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
 
             // weather condition
-            Text(_weather?.mainCondition ?? ""),
+            Text(
+              _weather?.mainCondition ?? "",
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
           ],
         ),
       ),
